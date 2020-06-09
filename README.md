@@ -82,7 +82,7 @@ use `rob-remote` to control the robot remotely.
 
 If you have set up Dschubbas workspace and have built it, you can try out the simulation:
 ```sh
-roslaunch  dschubba_launch simulation.launch
+roslaunch dschubba_launch simulation.launch
 ```
 
 Currently, you cannot access usb devices or cameras from the container. We might consider
@@ -92,7 +92,51 @@ running the container in privileged mode at some point.
 
 ## Development environment
 
-TODO
+Since the workspaces are just mapped into the container, you can of course still simply
+program on your host machine using your favorite text editor and only use the container
+for building and testing. However, if you want to use code-linting or a fully-fledged IDE,
+those tools will at some point need to be aware of the build environment.
+
+You have a few options for that:
+
+#### Install your IDE inside the container
+
+The probably easiest method is to just install your preferred IDE inside the container as
+well as ROS. So you do not need to do this every time you rebuild your image/container
+manually, you can define a custom image layer on top of the `kamaro:melodic`-image. To get
+started, you can look at the build-configuration in `melodic-thomas/`.
+That container could be created with the following:
+```sh
+./build-image.sh melodic-thomas/
+./setup-container.sh -n melodic kamaro:melodic-thomas
+```
+
+It is important that you keep the same first two lines in your Dockerfile:
+```
+ARG BASE_IMAGE=kamaro:melodic
+FROM ${BASE_IMAGE}
+```
+With that, `./build-image.sh` will automatically build the melodic image and your config on
+top of it.
+
+If your development setup is quite complex and has a lot of dependencies, installing it
+inside the container might still not be really feasible. 
+
+#### Using Visual Studio Codes Remote Development feature
+
+If you use Microsofts VSCode, you can use its [Remote Development feature](https://code.visualstudio.com/remote-tutorials/containers/getting-started).
+Be aware that that feature is only available in the proprietary version of vscode, and
+not functional in the open source version.
+
+#### Language Server
+
+If your IDE is using/supports the language server protocol, another option is to only
+install the language servers in the container, while still running the client IDE on the
+host machine. Configuring this depends on your IDE/editor. The build-configuration in
+`melodic-thomas/` for example installs the clangd and pyls language servers and contains
+an `coc-settings.json` configuration for the [coc.nvim](https://github.com/neoclide/coc.nvim) VIM plugin.
+Feel free to ask me (Thomas) for more info on this.
+
 
 ## Adding dependencies
 
