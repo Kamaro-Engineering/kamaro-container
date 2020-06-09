@@ -1,6 +1,7 @@
 # Kamaro Container
 
-Docker containers for easy, distribution-independent, and reproducible ROS development.
+Docker containers for an easy, distribution-independent, and reproducible ROS development
+environment.
 
 
 ## Getting started
@@ -16,10 +17,10 @@ container a bit smoother. If you [prefer not to](https://docs.docker.com/engine/
 
 #### Building an image
 
-Docker containers are always based on image. `melodic/` contains build instructions for an
-image based on bionic, which will contain ROS and any dependencies for our robot.
+Docker containers are always based on an image. `melodic/` contains build instructions for an
+image based on bionic, which will contain ROS and dependencies for our robot.
 
-To build this image, simply run:
+To build that image, simply run:
 ```
 ./build-image.sh
 ```
@@ -28,14 +29,14 @@ For more options and info run:
 ./build-image.sh -h
 ```
 
-You will only need to build an image once, or after updating the image, for example when
-adding more dependencies. The first build will take a while, but subsequent builds will
-make use of dockers build cache.
+You will only need to build an image once and after updating the image description, for
+example when adding more dependencies. The first build might take a while, but subsequent
+builds will make use of dockers build cache and be much faster.
 
 #### Creating a container
 
 First, you need to configure the location of your catkin workspace(s) in the
-`./workspaces` file. To then create a container from the image `kamaro:melodic`:
+`./workspaces` file. To then create a container from the image `kamaro:melodic`, run:
 ```sh
 ./setup-container.sh kamaro:melodic
 ```
@@ -79,14 +80,14 @@ choose your workspace with the `rob` function defined in the containers bashrc. 
 have configured a robot ip as well and are in the same network as the robot, you can also
 use `rob-remote` to control the robot remotely.
 
-If you have set up Dschubbas workspace and built it, how about trying out the simulation:
+If you have set up Dschubbas workspace and have built it, you can try out the simulation:
 ```sh
 roslaunch  dschubba_launch simulation.launch
 ```
 
 Currently, you cannot access usb devices or cameras from the container. We might consider
-running the container in privileged mode.
-[Info](https://stackoverflow.com/questions/24225647/docker-a-way-to-give-access-to-a-host-usb-or-serial-device)
+running the container in privileged mode at some point.
+[More Info](https://stackoverflow.com/questions/24225647/docker-a-way-to-give-access-to-a-host-usb-or-serial-device)
 
 
 ## Development environment
