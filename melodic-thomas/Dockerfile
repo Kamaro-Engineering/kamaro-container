@@ -1,7 +1,8 @@
-ARG BASE_IMAGE
+ARG BASE_IMAGE=kamaro:melodic
 FROM ${BASE_IMAGE}
 
 ARG uid
+ARG home
 
 RUN \
   mkdir -p ".terminfo/x/" \

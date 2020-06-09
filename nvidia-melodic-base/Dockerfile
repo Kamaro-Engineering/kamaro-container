@@ -1,4 +1,5 @@
-FROM nvidia/cudagl:10.0-devel-ubuntu18.04
+ARG BASE_IMAGE=nvidia/cudagl:10.0-devel-ubuntu18.04
+FROM ${BASE_IMAGE}
 
 #install melodic
 RUN \
