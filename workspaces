@@ -1,3 +1,9 @@
+# This file will be sourced with bash to set up your catkin workspaces.
+#
+# Adjust the workspace path(s) accordingly for your setup.
+# If only one workspace is defined, that workspace will be automatically sourced when
+# entering the container. Otherwise you can use the 'rob' function defined in the
+# containers bashrc to switch between workspaces.
 declare -A WORKSPACES=(
 #     name          workspace path        robot ip for remote (optional)
     ['dschubba']='  ~/kamaro/dschubba_ws  10.42.0.1'

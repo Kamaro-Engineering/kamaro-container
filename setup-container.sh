@@ -37,7 +37,7 @@ shift $((OPTIND - 1))
 image_name="$1"
 
 if [ -z "$image_name" ]; then
-  echo "No image_name given!"
+  echo "No image name given!"
   echo "$usage_info"
   exit 1
 fi

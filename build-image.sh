@@ -4,7 +4,7 @@ basedir="$(dirname "$0")"
 
 usage_info="Usage: $0 [[-b <base_image>] [-n <image_name>] <build-dir>]
 
-Must be either run with sudo, or as a user who is in group 'docker'.
+Must be either run with sudo, or as a user who is in the group 'docker'.
 
 Builds the docker image described in <build-dir> and tags it with the given name
 <image_name>. If no name is given, the name kamaro:<build_dir> is used.
