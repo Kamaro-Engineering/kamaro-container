@@ -16,8 +16,6 @@ HISTFILESIZE=20000
 shopt -s globstar
 shopt -s checkwinsize
 
-[ -f ~/.workspaces ] && source ~/.workspaces
-
 PROMPT_DIRTRIM=2
 MACHINE_NAME="melodic"
 
@@ -29,9 +27,9 @@ _set_prompt() {
   if [ -z "${ROBOT_NAME}" ]; then
     local win_title="\[\e]2;\u@${MACHINE_NAME}:\W\a\]"
   else
-    local win_title="\[\e]2;\u@${MACHINE_NAME}:\W - ${ROBOT_NAME} ${ROS_MASTER_URI:+(remote)}\a\]"
+    local win_title="\[\e]2;\u@${MACHINE_NAME}:\W - ${ROBOT_NAME} ${ROS_IP:+(remote)}\a\]"
   fi
-  local prompt_name="${ROBOT_NAME:-${MACHINE_NAME}}${ROS_MASTER_URI:+(remote)}"
+  local prompt_name="${ROBOT_NAME:-${MACHINE_NAME}}${ROS_IP:+(remote)}"
 
   PS1="${win_title}${bold}${yellow}${prompt_name}${reset}:${bold}${grey}\w${yellow}\$${reset} "
 }
@@ -51,6 +49,8 @@ source /opt/ros/melodic/setup.bash
 export ROS_HOSTNAME=localhost
 export ROS_MASTER_URI=http://localhost:11311
 
+[ -f ~/.workspaces ] && source ~/.workspaces
+
 # source a workspace defined in associative array WORKSPACES
 rob() {
   if [ -z "${WORKSPACES[$1]}" ]; then
@@ -59,11 +59,16 @@ rob() {
   fi
   ROBOT_NAME="$1"
   set -- ${WORKSPACES[$1]}
-  ROBOT_WORKING_DIR="$1"
-  ROBOT_MASTER_URI="$2"
+  local ws_dir="$1"
+  ROBOT_WORKING_DIR="${ws_dir/#~/$HOME}" # expand tilde
+  ROBOT_IP="$2"
   if ! source "$ROBOT_WORKING_DIR/devel/setup.bash"; then
     return 1
   fi
+
+  unset -v ROS_IP
+  export ROS_HOSTNAME=localhost
+  export ROS_MASTER_URI=http://localhost:11311
   _set_prompt
 }
 
@@ -78,18 +83,23 @@ rob-remote() {
     echo "No robot selected."
     return 1
   fi
-  if [ -z "$ROBOT_MASTER_URI" ]; then
-    echo "No master uri configured for current robot."
+  if [ -z "$ROBOT_IP" ]; then
+    echo "No ip address configured for current robot."
+    return 1
+  fi
+  # own ip in robots network, assuming subnet /24
+  local own_ip="$(hostname --all-ip-addresses | grep -oE "${ROBOT_IP%.*}\.[0-9]+")"
+  if [ -z "$own_ip" ]; then
+    echo "It seems like you are not in the same network as the robot:"
+    echo "current ips: $(hostname --all-ip-addresses)"
+    echo "robot ip: ${ROBOT_IP}"
     return 1
   fi
   unset -v ROS_HOSTNAME
-  export ROS_MASTER_URI=$ROBOT_MASTER_URI
-
+  export ROS_MASTER_URI="http://$ROBOT_IP:11311"
   # This forces ROS to identify this computer using its IP instead of the hostname which the robot cannot resolve
-  export ROS_IP=`ip a| sed -En 's/.*inet (addr:)?(192.([0-9]*\.){2}[0-9]*).*/\2/p'`
-  if [ -z "$ROS_IP" ]; then
-    export ROS_IP=`ip a| sed -En 's/.*inet (addr:)?(10.([0-9]*\.){2}[0-9]*).*/\2/p'`
-  fi #FIXME properly parse ip output
+  export ROS_IP="$own_ip"
+  _set_prompt
 }
 
 
