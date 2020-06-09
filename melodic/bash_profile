@@ -1,0 +1,2 @@
+# tmux does not start an interactive shell, so bashrc is not loaded per default
+[[ -f ~/.bashrc ]] && . ~/.bashrc

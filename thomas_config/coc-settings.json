@@ -1,0 +1,49 @@
+{
+  "clangd.enabled": false,
+  "languageserver": {
+    "clangd-melodic": {
+      "command": "docker",
+      "args": ["exec", "-i", "melodic-container", "/usr/bin/clangd-9"],
+      "filetypes": ["cpp", "c"]
+    },
+    "pyls-melodic": {
+      "command": "docker",
+      "args": [ "exec", "-i", "melodic-container",
+        "/usr/bin/env", "PYTHONPATH=/home/ralino/kamaro/dschubba_ws/devel/lib/python2.7/dist-packages:/opt/ros/melodic/lib/python2.7/dist-packages",
+        "/usr/local/bin/pyls", "--log-file", "/tmp/lsp_python.log" ],
+      "trace.server": "verbose",
+      "filetypes": [ "python" ],
+      "settings": {
+        "pyls": {
+          "enable": true,
+          "trace": {
+            "server": "verbose"
+          },
+          "commandPath": "",
+          "plugins": {
+            "jedi_completion": {
+              "enabled": true
+            },
+            "jedi_hover": {
+              "enabled": true
+            },
+            "jedi_references": {
+              "enabled": true
+            },
+            "jedi_signature_help": {
+              "enabled": true
+            },
+            "jedi_symbols": {
+              "enabled": true,
+              "all_scopes": true
+            },
+            "yapf": {
+              "enabled": true
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
