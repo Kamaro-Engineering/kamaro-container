@@ -47,7 +47,6 @@ COPY --chown=${uid}:${uid} bashrc "${home}/.bashrc"
 COPY --chown=${uid}:${uid} bash_profile "${home}/.bash_profile"
 
 #for getting dependencies run: rosdep install -s -r -i --from-paths src/
-
 # dschubba dependencies
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
   && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
@@ -58,11 +57,17 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
     ros-melodic-sick-scan \
     ros-melodic-teleop-twist-joy \
     v4l-utils
-
 RUN pip3 install -U \
     jinja2 \
     pygame \
     rospkg
+
+# beteigeuze dependencies TODO
+#RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
+#  && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
+#    ...
+#RUN pip3 install -U \
+#    ...
 
 # Switch to user
 USER "${user}"

@@ -140,5 +140,19 @@ Feel free to ask me (Thomas) for more info on this.
 
 ## Adding dependencies
 
-TODO
+While it is possible to install new dependencies directly in the container, those
+dependencies will need to be manually reinstalled everytime when rebuilding the
+image/container, or when someone else wants to install the container. Thats why new
+dependencies should be added to the build-configuration as soon as possible. The
+dependencies are currently configured in the `melodic/Dockerfile` in the accordingly
+commented RUN command. It is considered good style to keep the packages to install
+alphabetically ordered. Dependencies of different robots should be separated, as we
+might want to create separate docker images for each robot in the future.
 
+If the ros packages are configured correctly, you can use the rosdep. Run the following in
+the workspace to get a list of required packages:
+```sh
+rosdep install -s -r -i --from-paths src/
+```
+If a package does still require more dependencies to run than rosdep shows, then, if
+possible, fix its package.xml!
