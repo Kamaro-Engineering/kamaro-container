@@ -17,6 +17,9 @@ RUN DEBIAN_FRONTEND=noninteractive sudo apt-get update -qy \
   && DEBIAN_FRONTEND=noninteractive sudo apt-get install -qy \
     clangd-9
 
+RUN mkdir -p "${home}/.config/nvim" && mkdir -p "${home}/.vim/tmp"
+COPY --chown=${uid}:${uid} init.vim "${home}/.config/nvim/init.vim"
+
 COPY --chown=${uid}:${uid} bashrc_custom ".bashrc_custom"
 COPY --chown=${uid}:${uid} inputrc ".inputrc"
 RUN echo "source ~/.bashrc_custom" >> ".bashrc"

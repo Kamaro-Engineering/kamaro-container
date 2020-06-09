@@ -1,5 +1,5 @@
 export TERM=xterm-kitty
-export COLORTERM=xterm-kitty
+export COLORTERM=truecolor
 export EDITOR=vim
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash

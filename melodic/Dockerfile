@@ -68,9 +68,6 @@ RUN pip3 install -U \
 USER "${user}"
 WORKDIR "${home}"
 
-RUN mkdir -p "${home}/.config/nvim" && mkdir -p "${home}/.vim/tmp"
-COPY --chown=${uid}:${uid} init.vim "${home}/.config/nvim/init.vim"
-
 RUN rosdep update
 
 # This is required for sharing Xauthority
