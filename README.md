@@ -8,8 +8,8 @@ environment.
 
 First, you need to install and start docker according to your distro.
 ([Official instructions](https://docs.docker.com/engine/install/#server), [Arch Wiki](https://wiki.archlinux.org/index.php/Docker#Installation))
-If you want to use a NVIDIA graphics card you need at least version 19.03 or
-otherwise you need to additionally install [nvidia-container-toolkit](https://github.com/NVIDIA/nvidia-docker).
+If you want to use a NVIDIA graphics card you need to additionally install
+[nvidia-container-toolkit](https://github.com/NVIDIA/nvidia-docker) and restart the docker daemon after that.
 
 Adding your user to the `docker` group is optional, but might make working with the
 container a bit smoother. If you [prefer not to](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface), prepend the following commands with
