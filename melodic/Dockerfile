@@ -6,6 +6,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
   && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
     bash-completion \
     curl \
+    gdb \
     git \
     nano \
     ssh \
@@ -29,6 +30,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
     python-wstool \
     python3-pip \
     python3-vcstool
+
+RUN pip3 install -U \
+      jupyter
 
 ARG user
 ARG uid
