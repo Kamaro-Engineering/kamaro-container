@@ -4,11 +4,15 @@ FROM ${BASE_IMAGE}
 #basic utilities
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
   && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
+    apt-transport-https \
     bash-completion \
+    ca-certificates \
     curl \
     gdb \
     git \
+    gnupg \
     nano \
+    software-properties-common \
     ssh \
     sudo \
     tmux \
@@ -66,10 +70,19 @@ RUN pip3 install -U \
     pygame \
     rospkg
 
+
+#install up-to-date cmake from kitwares repos
+RUN wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | \
+      gpg --dearmor - > /etc/apt/trusted.gpg.d/kitware.gpg \
+  && apt-add-repository 'deb https://apt.kitware.com/ubuntu/ bionic main' \
+  && DEBIAN_FRONTEND=noninteractive apt-get update -qy \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
+  && cmake
+
 # beteigeuze dependencies TODO
-#RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
-#  && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
-#    ...
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
+    ros-melodic-rosserial-client
 #RUN pip3 install -U \
 #    ...
 
