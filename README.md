@@ -85,9 +85,8 @@ If you have set up Dschubbas workspace and have built it, you can try out the si
 roslaunch dschubba_launch simulation.launch
 ```
 
-Currently, you cannot access usb devices or cameras from the container. We might consider
-running the container in privileged mode at some point.
-[More Info](https://stackoverflow.com/questions/24225647/docker-a-way-to-give-access-to-a-host-usb-or-serial-device)
+The container is started in [privileged mode](https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities), so you should be able to access usb devices
+and cameras in the container just like on the host system.
 
 
 ## Development environment

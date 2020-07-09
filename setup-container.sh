@@ -101,6 +101,8 @@ docker container create \
   -v '/tmp/.X11-unix:/tmp/.X11-unix:ro' \
   -v "$_home/.ssh:$_home/.ssh:ro" \
   $workspace_args \
+  $volume_args \
+  --privileged \
   --network=host \
   --name "$container_name" \
   -it "$image_name"
