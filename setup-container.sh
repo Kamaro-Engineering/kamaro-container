@@ -2,7 +2,7 @@
 set -e
 basedir="$(dirname "$0")"
 
-usage_info="Usage: $0 [-n <container_name>] [-c <ws-config>] <image_name>
+usage_info="Usage: $0 [-n <container_name>] [-c <ws-config>] [-d <mounts>]... <image_name>
 
 Creates a new development container from the image <image_name>.
 If <container_name> is not specified, the container will have the same name as the tag
@@ -10,6 +10,9 @@ of the image its based on, otherwise <container_name>.
 
 <ws-config> should be a sourceable bash file configuring workspaces in an associative
 array like in $basedir/workspaces. Defaults to $basedir/workspaces.
+
+Additionally, more directories can be mounted using the -d flag, which can be supplied
+multiple times.
 "
 
 if [[ "$(whoami)" != 'root' ]] && ! [ "$(groups | grep -F 'docker')" ]; then
@@ -17,15 +20,19 @@ if [[ "$(whoami)" != 'root' ]] && ! [ "$(groups | grep -F 'docker')" ]; then
   exit 1
 fi
 
+declare -a additional_dirs
 container_name=""
 ws_config="$basedir/workspaces"
-while getopts hn:c: opt; do
+while getopts hn:c:d: opt; do
   case $opt in
     n)
       container_name="$OPTARG"
       ;;
     c)
       ws_config="$OPTARG"
+      ;;
+    d)
+      additional_dirs+=("$OPTARG")
       ;;
     ?)
       echo "$usage_info"
@@ -89,6 +96,16 @@ if [ -z "$workspace_args" ]; then
   echo "No workspaces are configured in $ws_config"
   exit 1
 fi
+
+volume_args=""
+for volume in "${additional_dirs[@]}"; do
+  volume="${volume/#\~/$_home}" # expand tilde
+  if ! [ -d "$volume" ]; then
+    echo "Additional volume '$volume' is not a directory."
+    exit 1
+  fi
+  volume_args+=" -v $volume:$volume "
+done
 
 additional_args=""
 if glxinfo | grep -iq "vendor.*nvidia"; then
