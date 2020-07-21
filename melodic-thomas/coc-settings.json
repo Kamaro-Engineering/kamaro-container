@@ -1,15 +1,21 @@
 {
   "clangd.enabled": false,
   "languageserver": {
+    "pyls": {
+      "command": "",
+      "filetypes": []
+    },
     "clangd-melodic": {
       "command": "docker",
-      "args": ["exec", "-i", "melodic-container", "/usr/bin/clangd-9"],
+      "args": [ "run", "-i", "--rm", "--volume=/home/ralino/kamaro/dschubba_ws:/home/ralino/kamaro/dschubba_ws",
+        "kamaro:melodic-thomas", "/usr/bin/clangd-9"],
       "filetypes": ["cpp", "c"]
     },
     "pyls-melodic": {
       "command": "docker",
-      "args": [ "exec", "-i", "melodic-container",
-        "/usr/bin/env", "PYTHONPATH=/home/ralino/kamaro/dschubba_ws/devel/lib/python2.7/dist-packages:/opt/ros/melodic/lib/python2.7/dist-packages",
+      "args": [ "run", "-i", "--rm", "--volume=/home/ralino/kamaro/dschubba_ws:/home/ralino/kamaro/dschubba_ws",
+        "kamaro:melodic-thomas", "/usr/bin/env",
+        "PYTHONPATH=/home/ralino/kamaro/dschubba_ws/devel/lib/python2.7/dist-packages:/opt/ros/melodic/lib/python2.7/dist-packages",
         "/usr/local/bin/pyls", "--log-file", "/tmp/lsp_python.log" ],
       "trace.server": "verbose",
       "filetypes": [ "python" ],
