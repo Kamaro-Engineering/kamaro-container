@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=nvidia/cuda:11.1.1-devel-ubuntu20.04
+ARG BASE_IMAGE=nvidia/cudagl:11.2.0-devel-ubuntu20.04
 FROM ${BASE_IMAGE}
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
@@ -24,14 +24,3 @@ RUN \
   && curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - \
   && DEBIAN_FRONTEND=noninteractive apt-get update -qy \
   && DEBIAN_FRONTEND=noninteractive apt-get install -qy ros-foxy-ros-base
-
-# install essential tools
-#RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
-#  && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
-#    build-essential \
-#    python-catkin-tools \
-#    python3-argcomplete \
-#    python3-colcon-common-extensions \
-#    python3-pip \
-#    python3-vcstool \
-#  && rosdep init

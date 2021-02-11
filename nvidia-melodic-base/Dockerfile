@@ -1,6 +1,9 @@
 ARG BASE_IMAGE=nvidia/cudagl:10.0-devel-ubuntu18.04
 FROM ${BASE_IMAGE}
 
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
+  && DEBIAN_FRONTEND=noninteractive apt-get upgrade -qy
+
 #install melodic
 RUN \
   echo "deb http://packages.ros.org/ros/ubuntu bionic main" > /etc/apt/sources.list.d/ros-latest.list \
