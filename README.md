@@ -17,8 +17,10 @@ container a bit smoother. If you [prefer not to](https://docs.docker.com/engine/
 
 #### Building an image
 
-Docker containers are always based on an image. `melodic/` contains build instructions for an
-image based on bionic, which will contain ROS and dependencies for our robot.
+Docker containers are always based on an image. `foxy/` contains build instructions for an
+image based on Ubuntu Focal, which will contain ROS-noetic, ROS2-foxy and dependencies for
+our robot. `melodic/` contains build instructions for melodic based on bionic, but is
+deprecated in favor of foxy/noetic.
 
 To build that image, simply run:
 ```
@@ -36,9 +38,9 @@ builds will make use of dockers build cache and be much faster.
 #### Creating a container
 
 First, you need to configure the location of your catkin workspace(s) in the
-`./workspaces` file. To then create a container from the image `kamaro:melodic`, run:
+`./workspaces` file. To then create a container from the image `kamaro:foxy`, run:
 ```sh
-./setup-container.sh kamaro:melodic
+./setup-container.sh kamaro:foxy
 ```
 Again, for more options and info run:
 ```sh
@@ -55,11 +57,11 @@ container for multiple commands.
 
 Once you have created a container you can start it with:
 ```sh
-docker start melodic
+docker start foxy
 ```
 And then open a terminal in it with:
 ```sh
-docker exec -it melodic bash
+docker exec -it foxy bash
 ```
 
 You can also use the provided helper script `./con` to quickly open a terminal in your
@@ -69,7 +71,7 @@ completion. (Bash completion requires your user to be in the `docker` group thou
 
 To stop the container run:
 ```sh
-docker stop melodic
+docker stop foxy
 ```
 
 #### Running ROS
@@ -102,24 +104,24 @@ You have a few options for that:
 
 The probably easiest method is to just install your preferred IDE inside the container as
 well as ROS. So you do not need to do this every time you rebuild your image/container
-manually, you can define a custom image layer on top of the `kamaro:melodic`-image. To get
-started, you can look at the build-configuration in `melodic-thomas/`.
+manually, you can define a custom image layer on top of the `kamaro:foxy`-image. To get
+started, you can look at the build-configuration in `foxy-thomas/`.
 That container could be created with the following:
 ```sh
-./build-image.sh melodic-thomas/
-./setup-container.sh -n melodic kamaro:melodic-thomas
+./build-image.sh foxy-thomas/
+./setup-container.sh -n foxy kamaro:foxy-thomas
 ```
 
 It is important that you keep the same first two lines in your Dockerfile:
 ```
-ARG BASE_IMAGE=kamaro:melodic
+ARG BASE_IMAGE=kamaro:foxy
 FROM ${BASE_IMAGE}
 ```
-With that, `./build-image.sh` will automatically build the melodic image and your config on
+With that, `./build-image.sh` will automatically build the foxy image and your config on
 top of it.
 
 If your development setup is quite complex and has a lot of dependencies, installing it
-inside the container might still not be really feasible. 
+inside the container might still not be really feasible.
 
 #### Using Visual Studio Codes Remote Development feature
 
@@ -132,7 +134,7 @@ not functional in the open source version.
 If your IDE is using/supports the language server protocol, another option is to only
 install the language servers in the container, while still running the client IDE on the
 host machine. Configuring this depends on your IDE/editor. The build-configuration in
-`melodic-thomas/` for example installs the clangd and pyls language servers and contains
+`foxy-thomas/` for example installs the clangd and pyls language servers and contains
 an `coc-settings.json` configuration for the [coc.nvim](https://github.com/neoclide/coc.nvim) VIM plugin.
 Feel free to ask me (Thomas) for more info on this.
 
@@ -143,7 +145,7 @@ While it is possible to install new dependencies directly in the container, thos
 dependencies will need to be manually reinstalled everytime when rebuilding the
 image/container, or when someone else wants to install the container. Thats why new
 dependencies should be added to the build-configuration as soon as possible. The
-dependencies are currently configured in the `melodic/Dockerfile` in the accordingly
+dependencies are currently configured in the `foxy/Dockerfile` in the accordingly
 commented RUN command. It is considered good style to keep the packages to install
 alphabetically ordered. Dependencies of different robots should be separated, as we
 might want to create separate docker images for each robot in the future.
