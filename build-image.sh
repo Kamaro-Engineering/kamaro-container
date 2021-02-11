@@ -6,16 +6,16 @@ usage_info="Usage: $0 [[-b <base_image>] [-n <image_name>] <build-dir>]
 
 Must be either run with sudo, or as a user who is in the group 'docker'.
 
-Builds the docker image described in <build-dir> and tags it with the given name
-<image_name>. If no name is given, the name kamaro:<build_dir> is used.
-If <base_image> is given, the existing image is used as the base of the build. Otherwise,
-the default image described in the Dockerfile is used. Kamaro images will be (re)built,
-even if they already exist.
-When building $basedir/melodic without specifying a base image, the
-kamaro:nvidia-melodic-base image will be used as a base image if the nvidia graphic driver
-is detected.
+Builds the docker image described in <build-dir> and tags it with the given
+name <image_name>. If no name is given, the name kamaro:<build_dir> is used.
+If <base_image> is given, the existing image is used as the base of the build.
+Otherwise, the default image described in the Dockerfile is used. Kamaro images
+will be (re)built, even if they already exist.
+When building $basedir/foxy without specifying a base image, the
+kamaro:nvidia-foxy-base image will be used as a base image if the nvidia
+graphic driver is detected.
 
-<build_dir> defaults to $basedir/melodic
+<build_dir> defaults to $basedir/foxy
 "
 
 if [[ "$(whoami)" != 'root' ]] && ! [ "$(groups | grep -F 'docker')" ]; then
@@ -45,7 +45,7 @@ while getopts hb:n: opt; do
 done
 shift $((OPTIND - 1))
 
-build_dir="${1:-$basedir/melodic}"
+build_dir="${1:-$basedir/foxy}"
 if ! [ -d "$build_dir" ] || ! [ -f "$build_dir/Dockerfile" ]; then
   echo "$build_dir is not a docker build directory"
   exit 1
@@ -56,9 +56,9 @@ if [ -z "$image_name" ]; then
 fi
 
 if [ -z "$arg_base_image" ]; then
-  if [[ "$(basename "$build_dir")" == "melodic" ]] && glxinfo | grep -iq "vendor.*nvidia"; then
+  if [[ "$(basename "$build_dir")" == "foxy" ]] && glxinfo | grep -iq "vendor.*nvidia"; then
     echo "$(tput setaf 2)Detected nvidia graphics driver$(tput sgr0)"
-    base_image="kamaro:nvidia-melodic-base"
+    base_image="kamaro:nvidia-foxy-base"
   else
     base_image="$(sed -En 's/^ARG[[:space:]]+BASE_IMAGE=([[:alnum:]:_-]+)/\1/p' "$build_dir/Dockerfile")"
     if [ -z "$base_image" ]; then
@@ -96,5 +96,6 @@ docker build \
   --build-arg home=$_home \
   --network=host \
   -t "$image_name" .
+#TODO make cache configurable --no-cache \
 
 echo "$(tput setaf 2)Built image $image_name$(tput sgr0)"

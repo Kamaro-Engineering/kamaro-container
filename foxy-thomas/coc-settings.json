@@ -1,0 +1,55 @@
+{
+  "clangd.enabled": false,
+  "languageserver": {
+    "pyls": {
+      "command": "",
+      "filetypes": []
+    },
+    "clangd-foxy": {
+      "command": "docker",
+      "args": [ "run", "-i", "--rm", "--volume=/home/ralino/kamaro/dschubba_ws:/home/ralino/kamaro/dschubba_ws",
+        "kamaro:foxy-thomas", "/usr/bin/clangd-11"],
+      "filetypes": ["cpp", "c"]
+    },
+    "pyls-foxy": {
+      "command": "docker",
+      "args": [ "run", "-i", "--rm", "--volume=/home/ralino/kamaro/dschubba_ws:/home/ralino/kamaro/dschubba_ws",
+        "kamaro:foxy-thomas", "/usr/bin/env",
+        "PYTHONPATH=/home/ralino/kamaro/dschubba_ws/devel/lib/python2.7/dist-packages:/opt/ros/foxy/lib/python2.7/dist-packages",
+        "/usr/local/bin/pyls", "--log-file", "/tmp/lsp_python.log" ],
+      "trace.server": "verbose",
+      "filetypes": [ "python" ],
+      "settings": {
+        "pyls": {
+          "enable": true,
+          "trace": {
+            "server": "verbose"
+          },
+          "commandPath": "",
+          "plugins": {
+            "jedi_completion": {
+              "enabled": true
+            },
+            "jedi_hover": {
+              "enabled": true
+            },
+            "jedi_references": {
+              "enabled": true
+            },
+            "jedi_signature_help": {
+              "enabled": true
+            },
+            "jedi_symbols": {
+              "enabled": true,
+              "all_scopes": true
+            },
+            "yapf": {
+              "enabled": true
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
