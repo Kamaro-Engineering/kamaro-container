@@ -13,10 +13,10 @@ RUN \
   && ".fzf/install" --all
 
 #language servers
+RUN sudo -H pip3 install -U jedi-language-server
 RUN DEBIAN_FRONTEND=noninteractive sudo apt-get update -qy \
   && DEBIAN_FRONTEND=noninteractive sudo apt-get install -qy \
-    clangd-11 \
-    python3-jedi
+    clangd-11
 
 RUN mkdir -p "${home}/.config/nvim" && mkdir -p "${home}/.vim/tmp"
 COPY --chown=${uid}:${uid} init.vim "${home}/.config/nvim/init.vim"
