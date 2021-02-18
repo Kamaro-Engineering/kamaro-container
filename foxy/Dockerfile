@@ -27,6 +27,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
   && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
     build-essential \
     python3-catkin-tools \
+    python3-osrf-pycommon \
     python3-pip \
     python3-rosdep \
     python3-rosinstall \
@@ -57,17 +58,26 @@ COPY --chown=${uid}:${uid} bash_profile "${home}/.bash_profile"
 # virtualfre dependencies
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
   && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
+    libceres-dev \
+    libgflags-dev \
+    libgmock-dev \
+    libgoogle-glog-dev \
+    liblua5.2-dev \
+    ninja-build \
     python3-pygame \
     ros-noetic-amcl \
     ros-noetic-gmapping \
     ros-noetic-hector-gazebo-plugins \
+    ros-noetic-hector-trajectory-server \
     ros-noetic-joy \
     ros-noetic-map-server \
     ros-noetic-move-base \
+    ros-noetic-pcl-conversions \
     ros-noetic-pointgrey-camera-description \
     ros-noetic-robot-localization \
     ros-noetic-rosdoc-lite \
-    ros-noetic-twist-mux
+    ros-noetic-twist-mux \
+    stow
 
 # Switch to user
 USER "${user}"
