@@ -12,6 +12,14 @@ RUN \
   git clone --depth 1 https://github.com/junegunn/fzf.git ".fzf" \
   && ".fzf/install" --all
 
+# running nvim locally in docker
+RUN DEBIAN_FRONTEND=noninteractive sudo apt-get update -qy \
+  && DEBIAN_FRONTEND=noninteractive sudo apt-get install -qy \
+    fd-find \
+    nodejs \
+    npm \
+    ripgrep
+
 #language servers
 RUN sudo -H pip3 install -U jedi-language-server
 RUN DEBIAN_FRONTEND=noninteractive sudo apt-get update -qy \

@@ -55,7 +55,7 @@ COPY --chown=${uid}:${uid} bashrc "${home}/.bashrc"
 COPY --chown=${uid}:${uid} bash_profile "${home}/.bash_profile"
 
 #for getting dependencies run: rosdep install -s -r -i --from-paths src/
-# virtualfre dependencies
+# virtualfre noetic dependencies
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
   && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
     libceres-dev \
@@ -72,12 +72,20 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
     ros-noetic-joy \
     ros-noetic-map-server \
     ros-noetic-move-base \
+    ros-noetic-moveit-msgs \
     ros-noetic-pcl-conversions \
     ros-noetic-pointgrey-camera-description \
     ros-noetic-robot-localization \
     ros-noetic-rosdoc-lite \
     ros-noetic-twist-mux \
     stow
+
+# virtualfre foxy dependencies
+RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
+    ros-foxy-nav2-bringup \
+    ros-foxy-navigation2 \
+    ros-foxy-ros1-bridge
 
 # Switch to user
 USER "${user}"
