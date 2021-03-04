@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=kamaro:nvidia-fox-base
+ARG BASE_IMAGE=ros:noetic-ros-base-focal
 FROM ${BASE_IMAGE}
 
 #basic utilities
@@ -29,13 +29,17 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
     python3-catkin-tools \
     python3-osrf-pycommon \
     python3-pip \
-    python3-rosdep \
     python3-rosinstall \
     python3-rosinstall-generator \
     python3-vcstool \
     python3-wstool
 
-RUN rosdep init
+#install foxy
+RUN \
+  echo "deb http://packages.ros.org/ros2/ubuntu focal main" > /etc/apt/sources.list.d/ros2-foxy.list \
+  && curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - \
+  && DEBIAN_FRONTEND=noninteractive apt-get update -qy \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -qy ros-foxy-ros-base
 
 ARG user
 ARG uid

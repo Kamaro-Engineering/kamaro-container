@@ -16,11 +16,8 @@ RUN \
   echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros-noetic.list \
   && apt-key adv --keyserver "hkp://keyserver.ubuntu.com:80" --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 \
   && DEBIAN_FRONTEND=noninteractive apt-get update -qy \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -qy ros-noetic-ros-base
+  && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
+    ros-noetic-ros-base \
+    python3-rosdep
 
-#install foxy
-RUN \
-  echo "deb http://packages.ros.org/ros2/ubuntu focal main" > /etc/apt/sources.list.d/ros2-foxy.list \
-  && curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add - \
-  && DEBIAN_FRONTEND=noninteractive apt-get update -qy \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -qy ros-foxy-ros-base
+RUN rosdep init
