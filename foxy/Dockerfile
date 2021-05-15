@@ -66,13 +66,26 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
     libgflags-dev \
     libgmock-dev \
     libgoogle-glog-dev \
-    liblua5.2-dev \
+    libignition-common3-dev \
+    libignition-common3-graphics-dev \
+    liblua5.3-dev \
+    libopencv-apps-dev \
     ninja-build \
+    python3-catkin \
+    python3-jinja2 \
+    python3-matplotlib \
+    python3-opencv \
+    python3-osrf-pycommon \
     python3-pygame \
+    python3-rospkg \
+    python3-shapely \
     ros-noetic-amcl \
     ros-noetic-gmapping \
+    ros-noetic-hector-gazebo \
     ros-noetic-hector-gazebo-plugins \
     ros-noetic-hector-trajectory-server \
+    ros-noetic-interactive-marker-twist-server \
+    ros-noetic-interactive-markers \
     ros-noetic-joy \
     ros-noetic-map-server \
     ros-noetic-move-base \
@@ -81,6 +94,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
     ros-noetic-pointgrey-camera-description \
     ros-noetic-robot-localization \
     ros-noetic-rosdoc-lite \
+    ros-noetic-teleop-twist-joy \
     ros-noetic-twist-mux \
     stow
 
