@@ -157,3 +157,10 @@ rosdep install -s -r -i --from-paths src/
 ```
 If a package does still require more dependencies to run than rosdep shows, then, if
 possible, fix its package.xml!
+
+## Troubleshooting
+
+If you get an error message with something like `Can't open display: :0` when launching
+rviz or gazebo or similar, you might need to call `xhost +` in your host system. Be aware
+of its [security implications](https://wiki.archlinux.org/title/Xhost) though.
+
