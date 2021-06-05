@@ -82,6 +82,7 @@ ENV QT_X11_NO_MITSHM=1
 
 # Build our robot
 COPY fre21_ws /catkin
+RUN /catkin/src/cartographer/scripts/install_abseil.sh
 RUN /bin/bash -c 'source /opt/ros/noetic/setup.bash && cd /catkin && catkin build'
 
 #Mountable location that contains map data for tasks 2/3 and where we expect pred_map.csv to go (in task 2)
