@@ -23,7 +23,7 @@ RUN \
 RUN rosdep init
 
 # Mirror behavior of official ros containers:
-ENV ROS_DISTRO melodic
+ENV ROS_DISTRO noetic
 
 # setup entrypoint
 COPY ./ros_entrypoint.sh /

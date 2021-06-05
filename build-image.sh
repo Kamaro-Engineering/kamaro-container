@@ -62,6 +62,18 @@ else
   nvidia_gpu=""
 fi
 
+if [[ "$(basename "$build_dir")" == "fre21_competition_robot" ]]; then
+  # clone sources for our robot before starting build
+  sources_dir="$build_dir/fre21_ws"
+  if ! [ -d "$sources_dir" ]; then
+    git clone ssh://git@gitlab.kamaro-engineering.de:8022/kamaro/fre21_ws.git "$sources_dir"
+    pushd "$sources_dir"
+    ./init.sh
+    popd
+  fi
+fi
+
+
 if [ -z "$arg_base_image" ]; then
   if [[ "$(basename "$build_dir")" == "foxy" ]] && [ "$nvidia_gpu" ]; then
     base_image="kamaro:nvidia-foxy-base"
