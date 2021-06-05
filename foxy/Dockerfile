@@ -68,7 +68,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
     libgoogle-glog-dev \
     libignition-common3-dev \
     libignition-common3-graphics-dev \
-    liblua5.3-dev \
+    liblua5.2-dev \
     libopencv-apps-dev \
     ninja-build \
     python3-catkin \

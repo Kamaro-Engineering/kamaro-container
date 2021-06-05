@@ -55,9 +55,21 @@ if [ -z "$image_name" ]; then
   image_name="kamaro:$(basename "$build_dir")"
 fi
 
+if glxinfo | grep -iq "vendor.*nvidia"; then
+  echo "$(tput setaf 2)Detected nvidia graphics driver$(tput sgr0)"
+  nvidia_gpu="true"
+else
+  nvidia_gpu=""
+fi
+
 if [ -z "$arg_base_image" ]; then
-  if [[ "$(basename "$build_dir")" == "foxy" ]] && glxinfo | grep -iq "vendor.*nvidia"; then
-    echo "$(tput setaf 2)Detected nvidia graphics driver$(tput sgr0)"
+  if [[ "$(basename "$build_dir")" == "foxy" ]] && [ "$nvidia_gpu" ]; then
+    base_image="kamaro:nvidia-foxy-base"
+  elif [[ "$(basename "$build_dir")" == "melodic" ]] && [ "$nvidia_gpu" ]; then
+    base_image="kamaro:nvidia-melodic-base"
+  elif [[ "$(basename "$build_dir")" == "fre21_competition_sim" ]] && [ "$nvidia_gpu" ]; then
+    base_image="kamaro:nvidia-melodic-base"
+  elif [[ "$(basename "$build_dir")" == "fre21_competition_robot" ]] && [ "$nvidia_gpu" ]; then
     base_image="kamaro:nvidia-foxy-base"
   else
     base_image="$(sed -En 's/^ARG[[:space:]]+BASE_IMAGE=([[:alnum:]:_-]+)/\1/p' "$build_dir/Dockerfile")"

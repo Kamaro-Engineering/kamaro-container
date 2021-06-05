@@ -23,3 +23,11 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
     python3-pip \
     python3-vcstool \
   && rosdep init
+
+# Mirror behavior of official ros containers:
+ENV ROS_DISTRO melodic
+
+# setup entrypoint
+COPY ./ros_entrypoint.sh /
+
+ENTRYPOINT ["/ros_entrypoint.sh"]

@@ -21,3 +21,11 @@ RUN \
     python3-rosdep
 
 RUN rosdep init
+
+# Mirror behavior of official ros containers:
+ENV ROS_DISTRO melodic
+
+# setup entrypoint
+COPY ./ros_entrypoint.sh /
+
+ENTRYPOINT ["/ros_entrypoint.sh"]
