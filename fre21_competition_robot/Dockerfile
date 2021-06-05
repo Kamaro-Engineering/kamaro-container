@@ -82,8 +82,7 @@ ENV QT_X11_NO_MITSHM=1
 
 # Build our robot
 COPY fre21_ws /catkin
-RUN /catkin/src/cartographer/scripts/install_abseil.sh
-RUN /bin/bash -c 'source /opt/ros/noetic/setup.bash && cd /catkin && catkin init && catkin build'
+RUN /bin/bash -c 'source /opt/ros/noetic/setup.bash && cd /catkin && catkin build'
 
 #Mountable location that contains map data for tasks 2/3 and where we expect pred_map.csv to go (in task 2)
 VOLUME ["/catkin/src/Virtual_Field_Robot_Event/virtual_maize_field/map"]
@@ -95,4 +94,4 @@ ENV ROS_MASTER_URI=http://acontainer:11311
 
 RUN sed -i 's|^\(source .*\)|\1 \&\& source /catkin/devel/setup.bash|g' /ros_entrypoint.sh
 
-CMD sh -c "roslaunch fre21_launch fre21.launch"
+CMD sh -c "roslaunch fre21_launch robot.launch fre_env:=true --wait"
