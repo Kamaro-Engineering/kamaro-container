@@ -96,7 +96,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
     ros-noetic-rosdoc-lite \
     ros-noetic-teleop-twist-joy \
     ros-noetic-twist-mux \
+    ros-noetic-urdfdom-py \
     stow
+
+RUN sudo -H pip3 install -U onnxruntime onnx
 
 # virtualfre foxy dependencies
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \

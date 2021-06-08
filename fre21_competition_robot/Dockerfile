@@ -73,7 +73,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
     ros-noetic-rosdoc-lite \
     ros-noetic-teleop-twist-joy \
     ros-noetic-twist-mux \
+    ros-noetic-urdfdom-py \
     stow
+
+RUN pip3 install -U onnxruntime onnx
 
 # This is required for sharing Xauthority
 ENV XAUTHORITY=/tmp/.docker.xauth
@@ -95,4 +98,4 @@ ENV ROS_MASTER_URI=http://acontainer:11311
 
 RUN sed -i 's|^\(source .*\)|\1 \&\& source /catkin/devel/setup.bash|g' /ros_entrypoint.sh
 
-CMD sh -c "roslaunch fre21_launch robot_task1.launch --wait"
+CMD sh -c "roslaunch fre21_launch robot_task3.launch --wait"
