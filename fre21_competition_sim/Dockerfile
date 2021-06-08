@@ -6,28 +6,30 @@ FROM ${BASE_IMAGE}
 
 #Competition dependencies
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 && \
-  DEBIAN_FRONTEND=noninteractive apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get -qy install ros-${ROS_DISTRO}-desktop-full ros-${ROS_DISTRO}-pointgrey-camera-description && \
-  DEBIAN_FRONTEND=noninteractive apt-get -qy install ros-${ROS_DISTRO}-robot-localization ros-${ROS_DISTRO}-twist-mux && \
-  DEBIAN_FRONTEND=noninteractive apt-get -qy install ros-${ROS_DISTRO}-interactive-marker-twist-server ros-${ROS_DISTRO}-hector-gazebo-plugins && \
-  DEBIAN_FRONTEND=noninteractive apt-get -qy install git python3-jinja2 python3-rospkg python3-opencv python3-matplotlib python3-shapely  && \
-  DEBIAN_FRONTEND=noninteractive apt-get -qy install git screen  && \
+  apt-get update && \
+  apt-get -y install ros-melodic-desktop-full ros-melodic-pointgrey-camera-description && \
+  apt-get -y install ros-melodic-robot-localization ros-melodic-twist-mux && \
+  apt-get -y install ros-melodic-interactive-marker-twist-server ros-melodic-hector-gazebo-plugins && \
+  apt-get -y install git screen python-pip python3-pip && \
   rm -rf /var/lib/apt/lists/*
+RUN pip install -U pip && pip3 install -U pip
+RUN pip install -U jinja2 rospkg
+RUN pip3 install numpy jinja2 rospkg opencv-python matplotlib shapely
 
 #Plain gazebo requirements
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 && \
-  DEBIAN_FRONTEND=noninteractive apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get -qy install ros-${ROS_DISTRO}-gazebo-ros-pkgs && \
-  DEBIAN_FRONTEND=noninteractive apt-get -qy install ros-${ROS_DISTRO}-gazebo-ros-control && \
+  apt-get update && \
+  apt-get -y install ros-melodic-gazebo-ros-pkgs && \
+  apt-get -y install ros-melodic-gazebo-ros-control && \
   rm -rf /var/lib/apt/lists/*
 
 RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654 && \
   DEBIAN_FRONTEND=noninteractive apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get -qy install ros-${ROS_DISTRO}-urdfdom-py
+  DEBIAN_FRONTEND=noninteractive apt-get -qy install ros-melodic-urdfdom-py
 
 #Make the code required for the container and add it to the entrypoint
 RUN mkdir -p /catkin/src && cd /catkin/src && git clone https://github.com/FieldRobotEvent/Virtual_Field_Robot_Event.git && rm -rf Virtual_Field_Robot_Event/example_robot
-RUN bash -c "source /opt/ros/${ROS_DISTRO}/setup.bash && cd /catkin && catkin_make"
+RUN bash -c "source /opt/ros/melodic/setup.bash && cd /catkin && catkin_make"
 RUN sed -i 's|^\(source .*\)|\1 \&\& source /catkin/devel/setup.bash|g' /ros_entrypoint.sh
 
 #Map volume location
