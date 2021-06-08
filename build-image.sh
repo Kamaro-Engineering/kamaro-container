@@ -81,8 +81,6 @@ if [ -z "$arg_base_image" ]; then
     base_image="kamaro:nvidia-melodic-base"
   elif [[ "$(basename "$build_dir")" == "fre21_competition_sim" ]] && [ "$nvidia_gpu" ]; then
     base_image="kamaro:nvidia-melodic-base"
-  elif [[ "$(basename "$build_dir")" == "fre21_competition_robot" ]] && [ "$nvidia_gpu" ]; then
-    base_image="kamaro:nvidia-foxy-base"
   else
     base_image="$(sed -En 's/^ARG[[:space:]]+BASE_IMAGE=([[:alnum:]:_-]+)/\1/p' "$build_dir/Dockerfile")"
     if [ -z "$base_image" ]; then
