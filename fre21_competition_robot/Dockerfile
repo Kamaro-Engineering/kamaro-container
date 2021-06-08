@@ -98,4 +98,4 @@ ENV ROS_MASTER_URI=http://acontainer:11311
 
 RUN sed -i 's|^\(source .*\)|\1 \&\& source /catkin/devel/setup.bash|g' /ros_entrypoint.sh
 
-CMD sh -c "roslaunch fre21_launch robot_task3.launch --wait"
+CMD sh -c "roslaunch fre21_launch robot_task3.launch fre_env:=True --wait"
