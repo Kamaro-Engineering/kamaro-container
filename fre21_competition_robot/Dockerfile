@@ -85,7 +85,6 @@ ENV QT_X11_NO_MITSHM=1
 
 # Build our robot
 COPY fre21_ws /catkin
-RUN /catkin/src/cartographer/scripts/install_abseil.sh
 RUN /bin/bash -c 'source /opt/ros/noetic/setup.bash && cd /catkin && catkin build'
 
 #Mountable location that contains map data for tasks 2/3 and where we expect pred_map.csv to go (in task 2)
@@ -98,4 +97,5 @@ ENV ROS_MASTER_URI=http://acontainer:11311
 
 RUN sed -i 's|^\(source .*\)|\1 \&\& source /catkin/devel/setup.bash|g' /ros_entrypoint.sh
 
+ENV JACKAL_LASER_OFFSET '0 0 -0.2'
 CMD sh -c "roslaunch fre21_launch robot_task3.launch fre_env:=True --wait"
