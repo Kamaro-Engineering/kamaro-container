@@ -106,7 +106,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
   && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
     ros-foxy-nav2-bringup \
     ros-foxy-navigation2 \
-    ros-foxy-ros1-bridge
+    ros-foxy-ros1-bridge \
+    python3-colcon-common-extensions
 
 # Switch to user
 USER "${user}"
