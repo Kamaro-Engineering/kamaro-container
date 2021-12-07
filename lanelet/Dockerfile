@@ -72,7 +72,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
     libeigen3-dev \ 
     libgeographic-dev \
     libpugixml-dev \
-    libpython-dev \
+    libpython3-dev \
     libboost-python-dev \
     ros-noetic-rospack \
     ros-noetic-catkin
