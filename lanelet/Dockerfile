@@ -80,13 +80,13 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
 # compile lanelet2 from source
 RUN \
       . /opt/ros/noetic/setup.bash \
-      mkdir -p ./lanelet_ws/src \
-      cd ./lanelet_ws \
-      catkin init \
-      catkin config --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-      git clone https://github.com/fzi-forschungszentrum-informatik/lanelet2.git ./src \
-      catkin build \
-      . ./devel/setup.bash
+      && mkdir -p ./lanelet_ws/src \
+      && cd ./lanelet_ws \
+      && catkin init \
+      && catkin config --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+      && git clone https://github.com/fzi-forschungszentrum-informatik/lanelet2.git ./src \
+      && catkin build \
+      && . ./devel/setup.bash
 
 # Switch to user
 USER "${user}"
