@@ -85,7 +85,7 @@ RUN \
       && catkin init \
       && catkin config --cmake-args -DCMAKE_BUILD_TYPE=RelWithDebInfo \
       && git clone https://github.com/fzi-forschungszentrum-informatik/lanelet2.git ./src \
-      && catkin build \
+      && catkin build -j2 \
       && . ./devel/setup.sh
 
 # Switch to user
