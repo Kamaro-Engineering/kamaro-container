@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<UserIntentions mediaName="CODE\win_b64\SIMULIA_EstPrd.media" mediaVersion="424.8"> 
+  <SetVariable item="dsls" name="serverType_radioButton" value="true"/>
+  <SetVariable name="dslsServer1" value="scclic5.scc.kit.edu:4085"/>
+  <SetVariable name="dslsServer2" value=""/>
+  <SetVariable name="dslsServer3" value=""/>
+  <SetVariable name="workingDir" value="C:\temp"/>
+  <SetVariable name="commandsDir" value="C:\SIMULIA\Commands"/> 
+  <SetVariable name="pluginsDir" value="C:\SIMULIA\CAE\plugins\2022"/> 
+  <SetVariable item="solverAbaqus" name="checkSolverInterfaces" value="true"/> 
+  <SetVariable item="solverMscNastran" name="checkSolverInterfaces" value="false"/> 
+  <SetVariable item="solverAnsys" name="checkSolverInterfaces" value="false"/> 
+  <SetVariable item="solverFemfat" name="checkSolverInterfaces" value="false"/> 
+  <SetVariable item="interfaceAnsa" name="checkSolverInterfaces" value="false"/> 
+  <SetVariable name="solverCcmpDir" value=""/> 
+  <SetVariable name="solverCcmpPodkey" value=""/> 
+  <SetVariable name="solverFluentDir" value=""/> 
+  <SetVariable name="DSYWelcomePanel"/> 
+  <SetVariable name="TARGET_PATH" value="C:\SIMULIA\EstProducts\2022"/> 
+  <!--Abaqus/Standard Solver--> 
+  <SetVariable item="CODE\win_b64\SIMAQSL_TP.prd" name="SelectProduct" value="true"/> 
+  <!--Abaqus/Explicit Solver--> 
+  <SetVariable item="CODE\win_b64\SIMAQXL_TP.prd" name="SelectProduct" value="true"/>
+  <!--Cosimulation Services--> 
+  <SetVariable item="CODE\win_b64\SIMCSS_TP.prd" name="SelectProduct" value="true"/> 
+  <!--Abaqus ODB API Services--> 
+  <SetVariable item="CODE\win_b64\SIMODB_TP.prd" name="SelectProduct" value="true"/> 
+  <!--Abaqus CAE--> 
+  <SetVariable item="CODE\win_b64\SIMCAE_TP.prd" name="SelectProduct" value="true"/> 
+  <!--Abaqus Samples--> 
+  <SetVariable item="CODE\win_b64\SIMSAMP_TP.prd" name="SelectProduct" value="true"/> 
+  <!--Tosca Structure--> 
+  <SetVariable item="CODE\win_b64\SIMTOSE_TP.prd" name="SelectProduct" value="true"/> 
+  <!--Tosca Fluid--> 
+  <SetVariable item="CODE\win_b64\SIMTOFE_TP.prd" name="SelectProduct" value="true"/> 
+  <!--fe-safe--> 
+  <SetVariable item="CODE\win_b64\SIMFESD_TP.prd" name="SelectProduct" value="false"/> 
+  <!--fe-safe interface to Abaqus 2021 ODBs--> 
+  <SetVariable item="CODE\win_b64\SIMFS21_TP.prd" name="SelectProduct" value="false"/> 
+  <!--fe-safe interface to Abaqus 2020 ODBs--> 
+  <SetVariable item="CODE\win_b64\SIMFS20_TP.prd" name="SelectProduct" value="false"/> 
+  <!--fe-safe interface to Abaqus 2019 ODBs--> 
+  <SetVariable item="CODE\win_b64\SIMFS19_TP.prd" name="SelectProduct" value="false"/> 
+  <!--fe-safe interface to Abaqus 2018 ODBs--> 
+  <SetVariable item="CODE\win_b64\SIMFS18_TP.prd" name="SelectProduct" value="false"/> 
+  <!--fe-safe materials and surface finish specifications--> 
+  <SetVariable item="CODE\win_b64\SIMFSMD_TP.prd" name="SelectProduct" value="false"/> 
+  <!--Material database server for fe-safe--> 
+  <SetVariable item="CODE\win_b64\SIMFSMS_TP.prd" name="SelectProduct" value="false"/> 
+  <!--fe-safe tutorial and sample data--> 
+  <SetVariable item="CODE\win_b64\SIMFSTD_TP.prd" name="SelectProduct" value="false"/> 
+  <!--fe-safe tutorial models for Abaqus--> 
+  <SetVariable item="CODE\win_b64\SIMFSAD_TP.prd" name="SelectProduct" value="false"/> 
+  <!--fe-safe tutorial models for I-DEAS--> 
+  <SetVariable item="CODE\win_b64\SIMFSID_TP.prd" name="SelectProduct" value="false"/> 
+  <!--fe-safe tutorial models for Ansys--> 
+  <SetVariable item="CODE\win_b64\SIMFSRD_TP.prd" name="SelectProduct" value="false"/> 
+  <!--fe-safe tutorial models for NASTRAN--> 
+  <SetVariable item="CODE\win_b64\SIMFSND_TP.prd" name="SelectProduct" value="false"/> 
+  <!--3DSFlow Solver--> 
+  <SetVariable item="CODE\win_b64\SIMAQF_TP.prd" name="SelectProduct" value="false"/> 
+  <SetVariable name="FinishPanel"/> 
+</UserIntentions>
