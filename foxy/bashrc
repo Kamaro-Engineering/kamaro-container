@@ -62,8 +62,18 @@ rob() {
   local ws_dir="$1"
   ROBOT_WORKING_DIR="${ws_dir/#~/$HOME}" # expand tilde
   ROBOT_IP="$2"
-  if ! source "$ROBOT_WORKING_DIR/devel/setup.bash"; then
-    return 1
+
+  if [ -f "$ROBOT_WORKING_DIR/setup.sh" ]; then
+    if ! source "$ROBOT_WORKING_DIR/setup.sh" 100; then
+      return 1
+    fi
+  else
+    if ! source /opt/ros/noetic/setup.bash; then
+      return 1
+    fi
+    if ! source "$ROBOT_WORKING_DIR/devel/setup.bash"; then
+      return 1
+    fi
   fi
 
   unset -v ROS_IP
@@ -87,18 +97,22 @@ rob-remote() {
     echo "No ip address configured for current robot."
     return 1
   fi
-  # own ip in robots network, assuming subnet /24
-  local own_ip="$(hostname --all-ip-addresses | grep -oE "${ROBOT_IP%.*}\.[0-9]+")"
-  if [ -z "$own_ip" ]; then
-    echo "It seems like you are not in the same network as the robot:"
-    echo "current ips: $(hostname --all-ip-addresses)"
-    echo "robot ip: ${ROBOT_IP}"
-    return 1
+  if [[ "$ROBOT_IP" =~ ^[0-9\.]+$ ]]; then
+    # own ip in robots network, assuming subnet /24
+    local own_ip="$(hostname --all-ip-addresses | grep -oE "${ROBOT_IP%.*}\.[0-9]+")"
+    if [ -z "$own_ip" ]; then
+      echo "It seems like you are not in the same network as the robot:"
+      echo "current ips: $(hostname --all-ip-addresses)"
+      echo "robot ip: ${ROBOT_IP}"
+      return 1
+    fi
+    export ROS_IP="$own_ip"
+    unset -v ROS_HOSTNAME
+  else
+    export ROS_HOSTNAME="$(hostname).${ROBOT_IP##*.}"
+    unset -v ROS_IP
   fi
-  unset -v ROS_HOSTNAME
   export ROS_MASTER_URI="http://$ROBOT_IP:11311"
-  # This forces ROS to identify this computer using its IP instead of the hostname which the robot cannot resolve
-  export ROS_IP="$own_ip"
   _set_prompt
 }
 
