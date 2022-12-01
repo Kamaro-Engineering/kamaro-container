@@ -15,20 +15,12 @@ RUN \
 # running nvim locally in docker
 RUN DEBIAN_FRONTEND=noninteractive sudo apt-get update -qy \
   && DEBIAN_FRONTEND=noninteractive sudo apt-get install -qy \
-    ctags \
     fd-find \
     nodejs \
     npm \
     ripgrep
 
-#language servers
-RUN sudo -H pip3 install -U jedi-language-server
-RUN DEBIAN_FRONTEND=noninteractive sudo apt-get update -qy \
-  && DEBIAN_FRONTEND=noninteractive sudo apt-get install -qy \
-    clangd-11 \
-    python3-venv
-
-RUN mkdir -p "${home}/.config/nvim" && mkdir -p "${home}/.vim/tmp"
+RUN mkdir -p "${home}/.config/nvim"
 COPY --chown=${uid}:${uid} init.vim "${home}/.config/nvim/init.vim"
 
 COPY --chown=${uid}:${uid} bashrc_custom ".bashrc_custom"
