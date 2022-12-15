@@ -111,6 +111,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
     ros-foxy-ros2-controllers \
     python3-colcon-common-extensions
 
+# TODO install up-to-date cmake from kitware repos
+
 # Switch to user
 USER "${user}"
 WORKDIR "${home}"

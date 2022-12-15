@@ -75,10 +75,9 @@ fi
 
 
 if [ -z "$arg_base_image" ]; then
-  if [[ "$(basename "$build_dir")" == "foxy" ]] && [ "$nvidia_gpu" ]; then
-    base_image="kamaro:nvidia-foxy-base"
-  elif [[ "$(basename "$build_dir")" == "melodic" ]] && [ "$nvidia_gpu" ]; then
-    base_image="kamaro:nvidia-melodic-base"
+  if [[ -d "nvidia-$(basename "$build_dir")-base" ]] && [ "$nvidia_gpu" ]; then
+    base_image="kamaro:nvidia-$(basename "$build_dir")-base"
+    echo "Using \"$base_image\" as base image."
   elif [[ "$(basename "$build_dir")" == "fre21_competition_sim" ]] && [ "$nvidia_gpu" ]; then
     base_image="kamaro:nvidia-melodic-base"
   else
