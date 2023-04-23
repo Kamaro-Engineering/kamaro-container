@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=lbt:ifort
+ARG BASE_IMAGE=kamaro:ifort
 FROM ${BASE_IMAGE}
 ARG user
 ARG uid
