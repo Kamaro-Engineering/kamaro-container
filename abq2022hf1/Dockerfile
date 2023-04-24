@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=lbt:ifort
+ARG BASE_IMAGE=kamaro:ifort
 FROM ${BASE_IMAGE}
 ARG user
 ARG uid
@@ -17,8 +17,8 @@ RUN \
       ls *.tar | xargs -i tar xf {} 
 RUN \
       # download and unpack hotfixes 
-      curl -O http://ftp.scc.kit.edu/pub/campus/ABAQUS/SIMULIA_2022/updates/2022.FP.CFA.2205.Part_SIMULIA_EstPrd.Linux64.tar && \
-      tar -xvf 2022.FP.CFA.2205.Part_SIMULIA_EstPrd.Linux64.tar
+      curl -O http://ftp.scc.kit.edu/pub/campus/ABAQUS/SIMULIA_2022/updates/2022.FP.CFA.2250.Part_SIMULIA_EstPrd.Linux64.tar && \
+      tar -xvf 2022.FP.CFA.2250.Part_SIMULIA_EstPrd.Linux64.tar
 RUN \
       # change `lsb_release --short --id |sed 's/ //g'` to "CentOS" in base installation and hotfixes
       sed -i "s/\`lsb_release --short --id |sed 's\/ \/\/g'\`/\"CentOS\"/g" ./AM_SIM_Abaqus_Extend.AllOS/4/SIMULIA_EstablishedProducts/Linux64/1/inst/common/init/Linux.sh && \
