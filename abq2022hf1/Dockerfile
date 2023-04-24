@@ -51,7 +51,7 @@ RUN \
 RUN \
       # remove archives, installation files and config files
       rm /Part_SIMULIA_EstPrd.Linux64 -rf && \
-      rm /2022.FP.CFA.2205.Part_SIMULIA_EstPrd.Linux64.tar -f && \
+      rm /2022.FP.CFA.2250.Part_SIMULIA_EstPrd.Linux64.tar -f && \
       rm /UserIntentions_CAA.xml /UserIntentions_CODE.xml
 RUN \
       # setup license
