@@ -6,9 +6,9 @@
 # containers bashrc to switch between workspaces.
 declare -A WORKSPACES=(
 #     name          workspace path            robot ip for remote (optional)
-    ['dschubba']='  ~/kamaro/dschubba_ws      10.42.0.1'
-    ['generic']='   ~/kamaro/catkin_ws'
-    ['beteigeuze']='~/kamaro/beteigeuze_ws    192.168.1.42'
-    ['virtualfre']='~/kamaro/fre21_ws'
-    ['ros2']='      ~/kamaro/foxy_ws'
+    ['dschubba']='  ~/abaqus/workspace      10.42.0.1'
+    ['generic']='   ~/abaqus/workspace'
+    ['beteigeuze']='~/abaqus/workspace    192.168.1.42'
+    ['virtualfre']='~/abaqus/workspace'
+    ['ros2']='      ~/abaqus/workspace'
   )

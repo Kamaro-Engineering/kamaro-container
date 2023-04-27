@@ -23,8 +23,8 @@ RUN \
       # change `lsb_release --short --id |sed 's/ //g'` to "CentOS" in base installation and hotfixes
       sed -i "s/\`lsb_release --short --id |sed 's\/ \/\/g'\`/\"CentOS\"/g" ./AM_SIM_Abaqus_Extend.AllOS/4/SIMULIA_EstablishedProducts/Linux64/1/inst/common/init/Linux.sh && \
       sed -i "s/\`lsb_release --short --id |sed 's\/ \/\/g'\`/\"CentOS\"/g" ./AM_SIM_Abaqus_Extend.AllOS/5/SIMULIA_EstablishedProducts_CAA_API/Linux64/1/inst/common/init/Linux.sh && \
-      sed -i "s/\`lsb_release --short --id |sed 's\/ \/\/g'\`/\"CentOS\"/g" ./Part_SIMULIA_EstPrd.Linux64/1/Software/SIMULIA_EstPrd.HF1.Linux64/1/inst/common/init/Linux.sh && \
-      sed -i "s/\`lsb_release --short --id |sed 's\/ \/\/g'\`/\"CentOS\"/g" ./Part_SIMULIA_EstPrd.Linux64/1/Software/CAASIMULIA_EstPrd.HF1.Linux64/1/inst/common/init/Linux.sh 
+      sed -i "s/\`lsb_release --short --id |sed 's\/ \/\/g'\`/\"CentOS\"/g" ./Part_SIMULIA_EstPrd.Linux64/1/Software/SIMULIA_EstPrd.HF6.Linux64/1/inst/common/init/Linux.sh && \
+      sed -i "s/\`lsb_release --short --id |sed 's\/ \/\/g'\`/\"CentOS\"/g" ./Part_SIMULIA_EstPrd.Linux64/1/Software/CAASIMULIA_EstPrd.HF6.Linux64/1/inst/common/init/Linux.sh 
 
       # config file for 'silent' base installation
 COPY --chown=${uid}:${uid} UserIntentions_CODE.xml "/UserIntentions_CODE.xml"
@@ -44,9 +44,9 @@ RUN \
 RUN \
       cd ./Part_SIMULIA_EstPrd.Linux64/1/Software/ && \
       # CODE install hotfixes
-      ./SIMULIA_EstPrd.HF1.Linux64/1/StartTUI.sh --silent /UserIntentions_CODE.xml && \
+      ./SIMULIA_EstPrd.HF6.Linux64/1/StartTUI.sh --silent /UserIntentions_CODE.xml && \
       # CAA install hotfixes
-      ./CAASIMULIA_EstPrd.HF1.Linux64/1/StartTUI.sh --silent /UserIntentions_CAA.xml && \
+      ./CAASIMULIA_EstPrd.HF6.Linux64/1/StartTUI.sh --silent /UserIntentions_CAA.xml && \
       cd ../../../
 RUN \
       # remove archives, installation files and config files
@@ -58,7 +58,7 @@ RUN \
       mkdir -p /var/DassaultSystemes/Licenses/ && \
       echo 'scclic5.scc.kit.edu:4085' > /var/DassaultSystemes/Licenses/DSLicSrv.txt && \
       # symlink abaqus to abq2022
-      ln /var/DassaultSystemes/SIMULIA/Commands/abq2022hf1 /usr/bin/abaqus
+      ln /var/DassaultSystemes/SIMULIA/Commands/abq2022hf6 /usr/bin/abaqus
 
 RUN \ 
       # install old dependency for pip
