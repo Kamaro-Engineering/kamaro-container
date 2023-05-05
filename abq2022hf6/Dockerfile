@@ -56,7 +56,7 @@ RUN \
 RUN \
       # setup license
       mkdir -p /var/DassaultSystemes/Licenses/ && \
-      echo 'scclic5.scc.kit.edu:4085' > /var/DassaultSystemes/Licenses/DSLicSrv.txt && \
+      echo 'scclic7.scc.kit.edu:4085' > /var/DassaultSystemes/Licenses/DSLicSrv.txt && \
       # symlink abaqus to abq2022
       ln /var/DassaultSystemes/SIMULIA/Commands/abq2022hf6 /usr/bin/abaqus
 
