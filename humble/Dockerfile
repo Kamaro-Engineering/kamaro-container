@@ -1,45 +1,46 @@
-ARG BASE_IMAGE=ros:humble-ros-base-jammy
+ARG BASE_IMAGE=osrf/ros:humble-desktop
 FROM ${BASE_IMAGE}
 
 #basic utilities
-RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
-    apt-transport-https \
-    bash-completion \
-    ca-certificates \
-    curl \
-    gdb \
-    git \
-    git-lfs \
-    gnupg \
-    nano \
-    software-properties-common \
-    ssh \
-    sudo \
-    tmux \
-    neovim \
-    wget
+RUN DEBIAN_FRONTEND=noninteractive apt update -qy \
+  && DEBIAN_FRONTEND=noninteractive apt install -qy \
+  apt-transport-https \
+  bash-completion \
+  ca-certificates \
+  curl \
+  gdb \
+  git \
+  git-lfs \
+  ripgrep \
+  gnupg \
+  software-properties-common \
+  ssh \
+  sudo \
+  tmux \
+  nano \
+  neovim \
+  wget
 
 # install rest of ROS humble
-RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -qy ros-humble-desktop
+RUN DEBIAN_FRONTEND=noninteractive apt update -qy \
+  && DEBIAN_FRONTEND=noninteractive apt install -qy ros-humble-desktop
 
 # common ros tools
-RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
-    build-essential \
-    python3-osrf-pycommon \
-    python3-pip \
-    python3-colcon-common-extensions \
-    python3-vcstool \
-    python3-wstool
+RUN DEBIAN_FRONTEND=noninteractive apt update -qy \
+  && DEBIAN_FRONTEND=noninteractive apt install -qy \
+  build-essential \
+  python3-osrf-pycommon \
+  python3-pip \
+  python3-colcon-common-extensions \
+  python3-vcstool \
+  python3-wstool
 
 # simulation
-RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
-    ignition-fortress \
-    ros-humble-ros-ign-bridge \
-    ros-humble-xacro
+RUN DEBIAN_FRONTEND=noninteractive apt update -qy \
+  && DEBIAN_FRONTEND=noninteractive apt install -qy \
+  ignition-fortress \
+  ros-humble-ros-ign-bridge \
+  ros-humble-xacro
 
 ARG user
 ARG uid
@@ -60,9 +61,35 @@ COPY --chown=${uid}:${uid} bash_profile "${home}/.bash_profile"
 
 #for getting dependencies run: rosdep install -s -r -i --from-paths src/
 # arm
-RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -qy \
-    ros-humble-moveit
+RUN DEBIAN_FRONTEND=noninteractive apt update -qy \
+  && DEBIAN_FRONTEND=noninteractive apt install -qy \
+  ros-humble-moveit \
+  ros-humble-ros-testing \
+  ros-humble-ros2test \
+  ros-humble-ros2-control \
+  ros-humble-ros2-control-test-assets \
+  ros-humble-ros2-controllers \
+  ros-humble-ros2controlcli \
+  ros-humble-gazebo-ros2-control \
+  ros-humble-hardware-interface \
+  ros-humble-transmission-interface \
+  ros-humble-controller-interface \
+  ros-humble-controller-manager \
+  ros-humble-controller-manager-msgs \
+  ros-humble-forward-command-controller \
+  ros-humble-position-controllers \
+  ros-humble-joint-limits \
+  ros-humble-joint-state-broadcaster \
+  ros-humble-joint-trajectory-controller \
+  ros-humble-joint-state-publisher \
+  ros-humble-joint-state-publisher-gui \
+  ros-humble-rviz-visual-tools \
+  ros-humble-control-toolbox \
+  ros-humble-robot-localization \
+  python3-pygraphviz \ 
+  ros-humble-realtime-tools \
+  ros-humble-graph-msgs \
+  ros-humble-ament-clang-format 
 
 # RUN sudo -H pip3 install -U onnxruntime onnx
 
