@@ -116,6 +116,13 @@ rob-remote() {
   _set_prompt
 }
 
+cdws() {
+  if [ -d "$ROBOT_WORKING_DIR" ]; then
+    cd "$ROBOT_WORKING_DIR";
+  else
+    echo "no workspace sourced yet, use the 'rob' command to select a workspace."
+  fi
+}
 
 _rob_completion() {
   local curr_arg
@@ -127,4 +134,3 @@ _rob_completion() {
   fi
 }
 complete -F _rob_completion rob
-

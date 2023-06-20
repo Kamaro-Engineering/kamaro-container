@@ -8,7 +8,8 @@ declare -A WORKSPACES=(
 #     name          workspace path            robot ip for remote (optional)
     ['dschubba']='  ~/kamaro/dschubba_ws      10.42.0.1'
     ['generic']='   ~/kamaro/catkin_ws'
-    ['beteigeuze']='~/kamaro/beteigeuze_ws    192.168.1.42'
+    ['beteigeuze']='~/kamaro/beteigeuze_ws    jetson.beteigeuze'
     ['virtualfre']='~/kamaro/fre21_ws'
-    ['ros2']='      ~/kamaro/foxy_ws'
+    ['cassiopeia']='~/kamaro/cassiopeia_ws'
+    ['arm_ws']='~/kamaro/arm_ws'
   )
