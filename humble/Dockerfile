@@ -91,7 +91,7 @@ WORKDIR "${home}"
 # Initialize rosdep
 RUN rosdep update
 
-# RUN rosdep install -r --from-paths ~/**/src -i -y --rosdistro humble
+# RUN rosdep install -r --from-paths ~/**/src -i -y --rosdistro $ROS_DISTRO
 
 # Add colcon mixins
 RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml && colcon mixin update default && rm -rf log
