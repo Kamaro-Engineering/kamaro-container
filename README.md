@@ -74,6 +74,15 @@ To stop the container run:
 docker stop foxy
 ```
 
+#### Install Dependencies
+
+In the docker session run:
+```sh
+rosdep install -r --from-paths ~/**/src -i -y --rosdistro $ROS_DISTRO
+```
+This will install all missing ros packages in all workspaces.
+
+
 #### Running ROS
 
 With a terminal open in the container, you can now use ROS as usual. If you only defined a
