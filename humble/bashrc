@@ -44,10 +44,16 @@ _set_prompt() {
 _set_prompt
 
 alias ls='ls --color=auto --human-readable'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+
 alias gittree='git log --graph --decorate --oneline --all'
+alias gitd="git diff --ignore-space-at-eol -b -w --ignore-blank-lines"
 alias gits='git status'
 
 #ROS
