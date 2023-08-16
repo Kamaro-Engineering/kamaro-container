@@ -1,5 +1,37 @@
 export TERM=xterm-kitty
 export COLORTERM=truecolor
 export EDITOR=vim
+export SHELL=/bin/bash
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+export PATH=$PATH:$HOME/.local/bin
+
+if [ -f ~/.fzf.bash ]; then
+  source ~/.fzf.bash
+
+  set -o vi
+  export FZF_DEFAULT_COMMAND="fd \
+    --hidden --follow \
+    --ignore-file ~/.config/rg_default_ignore \
+    --type f 2> /dev/null"
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_CTRL_T_OPTS="\"--bind=ctrl-g:reload(fd \
+      --hidden --follow --no-ignore --type f 2> /dev/null)\"\
+    \"--bind=ctrl-f:reload($FZF_CTRL_T_COMMAND)\""
+  export FZF_ALT_C_COMMAND="fd \
+    --hidden --no-ignore-vcs --follow \
+    --ignore-file ~/.config/rg_default_ignore \
+    --type d 2> /dev/null"
+  export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -20'"
+  export FZF_CTRL_R_OPTS="--reverse"
+  # Custom fzf bindings
+  # use C-f for C-t command, and C-g for A-c command
+  bind -m vi-insert -x '"\C-f": fzf-file-widget'
+  bind -m vi-command -x '"\C-f": fzf-file-widget'
+  bind -r '\C-t'
+  bind -r '\ec'
+  bind -m vi-command -r '\C-t'
+  bind -m vi-command -r '\ec'
+  bind -m emacs-standard '"\ec": " \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
+  bind -m vi-command '"\C-g": "\C-z\ec\C-z"'
+  bind -m vi-insert '"\C-g": "\C-z\ec\C-z"'
+fi

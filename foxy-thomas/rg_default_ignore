@@ -1,0 +1,6 @@
+**/.snapshots/
+*.pyc
+**/.git/
+**/.vim/tmp/
+**/.ccls-cache/
+**/.vscode/
