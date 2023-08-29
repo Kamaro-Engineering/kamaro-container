@@ -29,6 +29,10 @@ RUN DEBIAN_FRONTEND=noninteractive sudo apt-get update -qy \
 RUN mkdir -p ${home}/.local/bin \
   && ln -s $(which fdfind) ${home}/.local/bin/fd
 
+RUN git clone https://github.com/Ralino/nvim-config.git .config/nvim
+
+RUN sudo update-alternatives --install /usr/bin/vim vim "/usr/bin/nvim" 110
+
 COPY --chown=${uid}:${uid} bashrc_custom ".bashrc_custom"
 COPY --chown=${uid}:${uid} rg_default_ignore "${home}/.config/rg_default_ignore"
 COPY --chown=${uid}:${uid} inputrc ".inputrc"

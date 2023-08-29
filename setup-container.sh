@@ -60,7 +60,7 @@ if ! declare -p WORKSPACES | grep -qE '^declare.*-A.*WORKSPACES=.*'; then
   exit 1
 fi
 
-if docker inspect "$container_name" &> /dev/null; then
+if docker container inspect "$container_name" &> /dev/null; then
   echo "There already exists a container named '$container_name'!"
   echo "Either specify a different name or remove the old container with:"
   echo "  ${SUDO_USER:+sudo }docker container rm '$container_name'"
