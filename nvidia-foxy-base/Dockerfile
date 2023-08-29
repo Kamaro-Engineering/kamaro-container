@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=nvidia/cudagl:11.2.0-devel-ubuntu20.04
+ARG BASE_IMAGE=nvidia/cudagl:11.4.2-devel-ubuntu20.04
 FROM ${BASE_IMAGE}
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
