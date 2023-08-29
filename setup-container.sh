@@ -121,6 +121,7 @@ docker container create \
   $volume_args \
   --privileged \
   --network=host \
+  --ipc=host \
   --name "$container_name" \
   -it "$image_name"
 

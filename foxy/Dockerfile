@@ -114,12 +114,12 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update -qy \
 # TODO install up-to-date cmake from kitware repos
 
 # Switch to user
-USER "${user}"
-WORKDIR "${home}"
+USER ${user}
+WORKDIR ${home}
 
 RUN rosdep update
 
-# This is required for sharing Xauthority
-ENV QT_X11_NO_MITSHM=1
+# Might fix rendering artifacts if namespacing is enabled (ipc!=host)
+#ENV QT_X11_NO_MITSHM=1
 
 CMD ["/bin/bash", "-i"]
