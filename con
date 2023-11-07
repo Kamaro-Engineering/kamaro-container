@@ -25,7 +25,7 @@ fi
 
 shift
 if [[ "$#" == 0 ]]; then
-  exec docker exec -it "$container_name" /bin/bash -i
+  exec docker exec -it --env DISPLAY "$container_name" /bin/bash -i
 else
-  exec docker exec -i "$container_name" "$@"
+  exec docker exec -i --env DISPLAY "$container_name" "$@"
 fi

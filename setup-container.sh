@@ -115,6 +115,7 @@ fi
 docker container create \
   $additional_args \
   -e DISPLAY \
+  --tmpfs /tmp \
   -v '/tmp/.X11-unix:/tmp/.X11-unix:ro' \
   -v "$_home/.ssh:$_home/.ssh:ro" \
   $workspace_args \
